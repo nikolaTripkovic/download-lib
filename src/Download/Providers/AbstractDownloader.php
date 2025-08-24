@@ -12,7 +12,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 abstract class AbstractDownloader implements DownloaderInterface
 {
-    private const MAX_DIRECT_DOWNLOAD_SIZE = 0.1 * 1024 * 1024;
+    private const MAX_DIRECT_DOWNLOAD_SIZE = 10 * 1024 * 1024;
 
     protected readonly StreamDownloader $streamDownloader;
     
