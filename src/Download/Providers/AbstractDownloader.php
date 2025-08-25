@@ -53,7 +53,7 @@ abstract class AbstractDownloader implements DownloaderInterface
             if ($this->shouldUseDirectDownload($headers)) {
                 $this->downloadFileDirectly($response, $file);
             } else {
-                $this->downloadWithStreaming($downloadUrl, $file);
+                $this->downloadWithStreaming($response, $file);
             }
             
             return new UploadedFile(
@@ -111,7 +111,7 @@ abstract class AbstractDownloader implements DownloaderInterface
     /**
      * Download file using streaming for large files
      */
-    private function downloadWithStreaming(string $downloadUrl, string $filePath): void
+    private function downloadWithStreaming(ResponseInterface $response, string $filePath): void
     {
         $fileHandle = fopen($filePath, 'wb');
 
@@ -119,7 +119,7 @@ abstract class AbstractDownloader implements DownloaderInterface
             throw $this->createDownloadException(new \RuntimeException('Failed to create file.'));
         }
         try {
-            $this->streamDownloader->downloadToFileHandle($downloadUrl, $fileHandle);
+            $this->streamDownloader->downloadToFileHandle($response, $fileHandle);
         } catch (\Throwable $e) {
             throw $this->createDownloadException($e);
         } finally {

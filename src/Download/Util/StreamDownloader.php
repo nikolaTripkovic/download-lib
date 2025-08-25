@@ -4,6 +4,7 @@ namespace CodingTask\Download\Util;
 
 use CodingTask\Download\Exceptions\DownloadException;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * Utility class for streaming downloads
@@ -18,11 +19,9 @@ class StreamDownloader
      * Downloads a file to an existing file handle and returns response headers
      *
      */
-    public function downloadToFileHandle(string $downloadUrl, $fileHandle): void
+    public function downloadToFileHandle(ResponseInterface $response, $fileHandle): void
     {
         try {
-            $response = $this->httpClient->request('GET', $downloadUrl);
-
             foreach ($this->httpClient->stream($response) as $chunk) {
                 if ($chunk->isTimeout() || $chunk->isLast()) {
                     break;

@@ -59,8 +59,7 @@ foreach ($testUrls as $provider => $url) {
         echo "   - Filename: " . $uploadedFile->getClientOriginalName() . "\n";
         echo "   - Size: " . $uploadedFile->getSize() . " bytes\n";
         echo "   - MIME type: " . $uploadedFile->getMimeType() . "\n";
-        echo "   - Temp path: " . $uploadedFile->getPathname() . "\n";
-        
+
     } catch (InvalidUrlException $e) {
         echo "❌ Invalid URL: " . $e->getMessage() . "\n";
     } catch (DownloadFailedException $e) {
